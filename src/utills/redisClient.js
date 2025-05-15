@@ -1,13 +1,12 @@
 // utils/redisClient.js
 const { createClient } = require("redis");
-
 const redis = createClient({
-  socket: {
-    host: process.env.REDIS_HOST || "127.0.0.1",
-    port: Number(process.env.REDIS_PORT) || 6379,
-    reconnectStrategy: (retries) => Math.min(retries * 100, 3000)
-  },
-  password: process.env.REDIS_PASSWORD || undefined
+    username: 'default',
+    password: process.env.REDIS_PASSWORD,
+    socket: {
+        host: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT
+    }
 });
 
 // Add proper error handling
