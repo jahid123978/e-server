@@ -1,16 +1,17 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const path = require('path');
-const uploadDir = '../public' // Adjust based on your structure
+const __dirname = path.dirname(__filename);
+const uploadDir = '../../../client/public'
 async function uploadMainImage(req, res) {
 
     try {
     if (!req.files?.uploadedFile) {
       return res.status(400).json({ message: "No file uploaded" });
     }
-
+    const publicPath = path.join(__dirname, uploadDir);
     const uploadedFile = req.files.uploadedFile;
-    const filePath = path.join(uploadDir, uploadedFile.name);
+    const filePath = path.join(publicPath, uploadedFile.name);
 
     await uploadedFile.mv(filePath);
     
